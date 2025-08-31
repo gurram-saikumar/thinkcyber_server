@@ -12,13 +12,13 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'CRUD Node.js PostgreSQL API',
+      title: 'ThinkCyber API Documentation',
       version: '1.0.0',
-      description: 'API documentation for CRUD Node.js PostgreSQL',
+      description: 'API documentation for ThinkCyber platform',
     },
     servers: [
       {
-        url: 'http://localhost:' + (process.env.PORT || 3000),
+        url: 'https://thinkcyber-server.onrender.com',
       },
     ],
     components: {
