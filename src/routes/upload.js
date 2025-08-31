@@ -142,6 +142,7 @@ const validateFileSize = (file, type) => {
  */
 router.post('/image', upload.single('image'), async (req, res) => {
   try {
+    console.log('POST /api/upload/image called');
     if (!req.file) {
       return res.status(400).json({
         success: false,
@@ -1434,6 +1435,11 @@ router.use((error, req, res, next) => {
     success: false,
     error: error.message || 'Upload failed'
   });
+});
+
+// Simple test endpoint to verify router is loaded
+router.get('/test', (req, res) => {
+  res.json({ success: true, message: 'Upload router is working!' });
 });
 
 module.exports = router;

@@ -225,7 +225,7 @@ app.use('/api', topicsRoutes);
 app.use('/api', topicsActionsRoutes);
 app.use('/api', topicsModulesRoutes);
 app.use('/api', topicsVideosRoutes);
-app.use('/api', uploadRoutes);
+app.use('/api/upload', uploadRoutes);
 app.use('/api/auth', authRouter);
 
 // Serve uploaded files statically

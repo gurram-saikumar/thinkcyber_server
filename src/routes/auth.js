@@ -85,14 +85,15 @@ router.post('/signup', async (req, res) => {
   if (!email || !firstname || !lastname) {
     return res.status(400).json({ success: false, error: 'Email, firstname, and lastname required' });
   }
+  const name = `${firstname} ${lastname}`;
   try {
     const exists = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
     if (exists.rows.length) {
       return res.status(400).json({ success: false, error: 'User already exists' });
     }
     const result = await pool.query(
-      'INSERT INTO users (email, firstname, lastname, is_verified) VALUES ($1, $2, $3, false) RETURNING *',
-      [email, firstname, lastname]
+      'INSERT INTO users (email, name, is_verified) VALUES ($1, $2, $3) RETURNING *',
+      [email, name, false]
     );
     // Generate OTP for signup
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -109,6 +110,7 @@ router.post('/signup', async (req, res) => {
     });
     res.status(201).json({ success: true, user: result.rows[0], message: 'Signup successful, OTP sent to email.' });
   } catch (err) {
+    console.error('Signup DB error:', err); // This will print the real error to your server logs
     res.status(500).json({ success: false, error: 'DB error' });
   }
 });
